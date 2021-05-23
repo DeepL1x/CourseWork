@@ -10,26 +10,6 @@
 
 using namespace std;
 
-//template<typename T>
-//void FreeMem(T **matr, int n);
-//
-//template<typename T>
-//void PrintMtx(T **matr, int n);
-//
-//template<typename T>
-//void SetMtx(T **matr, int n);
-//
-//template<typename T>
-//void TransponMtx(T **matr, T **tMatr, int n);
-//
-//template<typename T>
-//void EraseRowClmn(T **matr, int n, T **temp_matr, int indRow, int indCol);
-//
-//template<typename T>
-//T Det(T **matr, int n);
-//
-//template<typename T>
-//void getMatr(T **matr, int &n);
 template <typename T> void TransponMtx(T **matr, T **tMatr, int n){//
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
