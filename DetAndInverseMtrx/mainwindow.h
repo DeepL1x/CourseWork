@@ -15,6 +15,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
 
+
     ~MainWindow();
 
 private slots:
@@ -25,6 +26,10 @@ private slots:
     void clearFields();
 
     void clearRFields();
+
+    void clearErrorLabel();
+
+    void clearTimeField();
 
     void hideFields();
 
@@ -42,7 +47,14 @@ private slots:
 
     void on_detButton_clicked();
 
+//    template<typename T>
+//    void inverseMtx();
+
     void on_inverseMtrxButton_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_rndFillButton_clicked();
 
 private:
     QLineEdit*** mtx;

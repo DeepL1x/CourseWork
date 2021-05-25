@@ -10,29 +10,33 @@
 
 using namespace std;
 
-template <typename T> void TransponMtx(T **matr, T **tMatr, int n){//
+template <typename T>
+void TransponMtx(T **matr, T **tMatr, int n){//
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
             tMatr[j][i] = matr[i][j];
 }
-//Функция освобождения памяти
-template <typename T> void FreeMem(T **matr, int n)
+
+template <typename T>
+void FreeMem(T **matr, int n) /*функція очищення пам'яті*/
 {
     for(int i = 0; i < n; i++)
         delete [] matr[i];
     delete [] matr;
 }
 
-//функция заполнения матрицы
-template <typename T> void SetMtx(T **matr, int n)
+
+template <typename T>
+void SetMtx(T **matr, int n)/*функція генерування матриці*/
 {
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
-            matr[i][j] = rand()%9 + 1;
+            matr[i][j] = -10 + rand() % 21;
 }
 
-//функция печати матрицы
-template <typename T> void PrintMtx(T **matr, int n)
+
+template <typename T>
+void PrintMtx(T **matr, int n)/*функція друку матриці*/
 {
     for (int i = 0; i < n; i++){
         for (int j = 0; j < n; j++)
@@ -40,9 +44,9 @@ template <typename T> void PrintMtx(T **matr, int n)
         cout << endl;
     }
 }
-//функция вычеркивания строки и столбца
+
 template <typename T>
-void EraseRowClmn(T **matr, int n, T **temp_matr, int indRow, int indCol)
+void EraseRowClmn(T **matr, int n, T **temp_matr, int indRow, int indCol)/*функція видалення рядка та стовпця*/
 {
     int ki = 0;
     for (int i = 0; i < n; i++){
@@ -58,10 +62,11 @@ void EraseRowClmn(T **matr, int n, T **temp_matr, int indRow, int indCol)
     }
 }
 
-template <typename T> T Det(T **matr, int n) /*функція обчислення визначника матриці*/
+template <typename T>
+T Det(T **matr, int n) /*функція обчислення визначника матриці*/
 {
     T temp = 0;   //тимчасова зміння для зберігання визначника
-        int k = 1;      //степень
+        int k = 1;      //степінь
         if (n == 1)
             temp = matr[0][0];
         else if (n == 2)
@@ -82,24 +87,25 @@ template <typename T> T Det(T **matr, int n) /*функція обчисленн
 }
 
 template <typename T>
-T** inverseMtrx(T** matr, T** obr_matr, T** tobr_matr, T det, int n){
+T** inverseMtrx(T** matr, T** inv_matr, T** t_inv_matr, T det, int n){ /*функція обчислення оберненої матриці*/
     if(det){
         for(int i = 0; i < n; i++){
             for(int j = 0; j < n; j++){
                 int m = n - 1;
-                double **temp_matr = new double * [m];
+                T **temp_matr = new T * [m];
                 for(int k = 0; k < m; k++)
-                    temp_matr[k] = new double[m];
+                    temp_matr[k] = new T[m];
                 EraseRowClmn(matr, n, temp_matr, i, j);
-                obr_matr[i][j] = pow(-1.0, i + j + 2) * Det(temp_matr, m) / det;
+                inv_matr[i][j] = pow(-1.0, i + j + 2) * Det(temp_matr, m) / det;
                 FreeMem(temp_matr, m);
             }
         }
-        TransponMtx(obr_matr, tobr_matr, n); /*транспонування матриці*/
+        TransponMtx(inv_matr, t_inv_matr, n); /*транспонування матриці*/
     }
 }
 
-template <typename T> void getMatr(T **matr, const int &n) {
+template <typename T>
+void getMatr(T **matr, const int &n){ /*функція зчитування матриці*/
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             cout << "matrix[" << i << ']' << '[' << j<< ']' ; cin >> matr[i][j];
